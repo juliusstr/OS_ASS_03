@@ -29,6 +29,7 @@ public class Client
                 System.out.println(dis.readUTF());
                 String tosend = scn.nextLine();
                 dos.writeUTF(tosend);
+                System.out.println("sendt: " + tosend);
 
                 // If client sends exit,close this connection
                 // and then break from the while loop

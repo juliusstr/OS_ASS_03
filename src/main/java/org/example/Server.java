@@ -4,6 +4,9 @@ import java.io.*;
 import java.text.*;
 import java.util.*;
 import java.net.*;
+import java.util.concurrent.Semaphore;
+
+
 
 public class Server
 {
@@ -11,6 +14,8 @@ public class Server
     {
         // server is listening on port 6666
         ServerSocket ss = new ServerSocket(6666);
+        Semaphore semaphore = new Semaphore(1);
+        Phonebook phonebook = new Phonebook();
 
         // running infinite loop for getting
         // client request
@@ -32,7 +37,7 @@ public class Server
                 System.out.println("Assigning new thread for this client");
 
                 // create a new thread object
-                Thread t = new ClientHandler(s, dis, dos);
+                Thread t = new ClientHandler(s, dis, dos, semaphore, phonebook);
 
                 // Invoking the start() method
                 t.start();
@@ -47,21 +52,27 @@ public class Server
 }
 
 // ClientHandler class
-class ClientHandler extends Thread
-{
+class ClientHandler extends Thread {
+
+    static final long DELAY_MS = 1;
     DateFormat fordate = new SimpleDateFormat("yyyy/MM/dd");
     DateFormat fortime = new SimpleDateFormat("hh:mm:ss");
     final DataInputStream dis;
     final DataOutputStream dos;
     final Socket s;
 
+    Semaphore semaphore;
+    Phonebook phonebook;
+
 
     // Constructor
-    public ClientHandler(Socket s, DataInputStream dis, DataOutputStream dos)
+    public ClientHandler(Socket s, DataInputStream dis, DataOutputStream dos, Semaphore semaphore, Phonebook phonebook)
     {
         this.s = s;
         this.dis = dis;
         this.dos = dos;
+        this.semaphore = semaphore;
+        this.phonebook = phonebook;
     }
 
     @Override
@@ -74,8 +85,7 @@ class ClientHandler extends Thread
             try {
 
                 // Ask user what he wants
-                dos.writeUTF("What do you want?[Date | Time]..\n"+
-                        "Type Exit to terminate connection.");
+                dos.writeUTF("HI\n");
 
                 // receive the answer from client
                 received = dis.readUTF();
@@ -94,7 +104,10 @@ class ClientHandler extends Thread
 
                 // write on output stream based on the
                 // answer from the client
-                switch (received) {
+                String command[] = received.split(";");
+                String k = "";
+                String v = "";
+                switch (command[0]) {
 
                     case "Date" :
                         toreturn = fordate.format(date);
@@ -106,12 +119,59 @@ class ClientHandler extends Thread
                         dos.writeUTF(toreturn);
                         break;
 
+                    case "Put" :
+                        k = command[1];
+                        v = command[2];
+                        System.out.println("k: " + k + "   v: " + v);
+                        semaphore.acquireUninterruptibly();
+                        toreturn = phonebook.put(k,v);
+                        Thread.sleep(DELAY_MS);
+                        semaphore.release();
+                        if (toreturn == null)
+                            toreturn = "N/A";
+                        dos.writeUTF(toreturn);
+                        break;
+
+                    case "Get" :
+                        k = command[1];
+                        System.out.println("k: " + k);
+                        semaphore.acquireUninterruptibly();
+                        toreturn = phonebook.get(k);
+                        Thread.sleep(DELAY_MS);
+                        semaphore.release();
+                        if (toreturn == null)
+                            toreturn = "N/A";
+                        dos.writeUTF(toreturn);
+                        break;
+
+                    case "Remove" :
+                        k = command[1];
+                        System.out.println("k: " + k);
+                        semaphore.acquireUninterruptibly();
+                        toreturn = phonebook.remove(k);
+                        Thread.sleep(DELAY_MS);
+                        semaphore.release();
+                        if (toreturn == null)
+                            toreturn = "N/A";
+                        dos.writeUTF(toreturn);
+                        break;
+
                     default:
                         dos.writeUTF("Invalid input");
                         break;
                 }
-            } catch (IOException e) {
+            } catch (IOException | InterruptedException e) {
                 e.printStackTrace();
+                System.out.println("error");
+                break;
+            } catch (ArrayIndexOutOfBoundsException e){
+                try {
+                    dos.writeUTF("missing info in command");
+                } catch (IOException ex) {
+                    e.printStackTrace();
+                    System.out.println("error");
+                    break;
+                }
             }
         }
 
