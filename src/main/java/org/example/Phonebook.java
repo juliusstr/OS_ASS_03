@@ -10,31 +10,24 @@ public class Phonebook {
     /*
     inits the phonebook or clears it.
      */
-    public Phonebook(){
+    public Phonebook() {
         phoneBook = new HashMap<String, String>();
     }
 
-    public String put(String k, String v){
-        return phoneBook.put(k,v);
+    public String put(String k, String v) {
+        return phoneBook.put(k, v);
     }
 
-    public String get(String k){
-        return phoneBook.get(k)==null ? "fejl": phoneBook.get(k);
+    public String get(String k) {
+        return phoneBook.get(k) == null ? "fejl" : phoneBook.get(k);
     }
 
-    public String remove(String k){
+    public String remove(String k) {
         return phoneBook.remove(k);
     }
 
-    public int size(){
+    public int size() {
         return phoneBook.size();
     }
-
-    public Set keySet(){
-        return phoneBook.keySet();
-    }
-
-    public Collection<String> values(){
-        return phoneBook.values();
-    }
 }
+

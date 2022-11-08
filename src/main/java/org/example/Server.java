@@ -10,12 +10,14 @@ import java.util.concurrent.Semaphore;
 
 public class Server
 {
+
     public static void main(String[] args) throws IOException
     {
         // server is listening on port 6666
         ServerSocket ss = new ServerSocket(6666);
         Semaphore semaphore = new Semaphore(1);
         Phonebook phonebook = new Phonebook();
+
 
         // running infinite loop for getting
         // client request
@@ -85,7 +87,7 @@ class ClientHandler extends Thread {
             try {
 
                 // Ask user what he wants
-                dos.writeUTF("HI\n");
+                dos.writeUTF("HI");
 
                 // receive the answer from client
                 received = dis.readUTF();
@@ -156,6 +158,14 @@ class ClientHandler extends Thread {
                         dos.writeUTF(toreturn);
                         break;
 
+                    case "Size" :
+                        int i;
+                        semaphore.acquireUninterruptibly();
+                        i = phonebook.size();
+                        Thread.sleep(DELAY_MS);
+                        semaphore.release();
+                        dos.writeUTF("" + i);
+                        break;
                     default:
                         dos.writeUTF("Invalid input");
                         break;
