@@ -35,7 +35,7 @@ public class PeterClient
                 System.out.println(dis.readUTF());
                 switch (callNr++){
                     case 0:
-                        tosend = "Put;Peter;69";
+                        tosend = "Put;Peter;31105068";
                         break;
                     case 1:
                         tosend = "Put;Meatgrinder;42";
