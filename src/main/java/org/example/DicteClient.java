@@ -38,9 +38,32 @@ public class DicteClient
                         tosend = "Get;dicte";
                         break;
                     case 2:
+                        tosend = "Size";
                         break;
-
-                    catosend
+                    case 3:
+                        tosend = "Remove;dicte";
+                        break;
+                    case 4:
+                        tosend = "Put;emma;21938868";
+                        break;
+                    case 5:
+                        tosend = "Put;stina;40950189";
+                        break;
+                    case 6:
+                        tosend = "thisisawronginput";
+                        break;
+                    case 7:
+                        tosend = "Get;stina";
+                        break;
+                    case 8:
+                        tosend = "Put;bob;12345678";
+                        break;
+                    case 9:
+                        tosend = "Remove;stina";
+                        break;
+                    case 10:
+                        tosend = "Put;peterIsWeird;1234";
+                        break;
                     default:
                         tosend = "EXIT";
                         break;
