@@ -68,7 +68,7 @@ public class ChrisClient
                         tosend = "Remove;bob;40";
                         break;
                     default:
-                        tosend = "EXIT";
+                        tosend = "Exit";
                         break;
                 }
 

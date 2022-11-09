@@ -68,7 +68,7 @@ public class JuliusClient
                         tosend = "Remove;peter";
                         break;
                     default:
-                        tosend = "EXIT";
+                        tosend = "Exit";
                         break;
                 }
 

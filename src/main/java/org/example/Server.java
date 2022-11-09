@@ -56,7 +56,7 @@ public class Server
 // ClientHandler class
 class ClientHandler extends Thread {
 
-    static final long DELAY_MS = 10000;
+    static final long DELAY_MS = 2000;
     DateFormat fordate = new SimpleDateFormat("yyyy/MM/dd");
     DateFormat fortime = new SimpleDateFormat("hh:mm:ss");
     final DataInputStream dis;
@@ -127,6 +127,7 @@ class ClientHandler extends Thread {
                         System.out.println("k: " + k + "   v: " + v);
                         semaphore.acquireUninterruptibly();
                         toreturn = phonebook.put(k,v);
+                        Thread.sleep(DELAY_MS);
                         semaphore.release();
                         if (toreturn == null)
                             toreturn = "N/A";
@@ -138,6 +139,7 @@ class ClientHandler extends Thread {
                         System.out.println("k: " + k);
                         semaphore.acquireUninterruptibly();
                         toreturn = phonebook.get(k);
+                        Thread.sleep(DELAY_MS);
                         semaphore.release();
                         if (toreturn == null)
                             toreturn = "N/A";

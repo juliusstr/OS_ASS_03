@@ -74,7 +74,7 @@ public class PeterClient
                         tosend = "Size";
                         break;
                     default:
-                        tosend = "EXIT";
+                        tosend = "Exit";
                         break;
                 }
 

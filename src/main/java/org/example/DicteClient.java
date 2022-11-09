@@ -65,7 +65,7 @@ public class DicteClient
                         tosend = "Put;peterIsWeird;1234";
                         break;
                     default:
-                        tosend = "EXIT";
+                        tosend = "Exit";
                         break;
                 }
 
