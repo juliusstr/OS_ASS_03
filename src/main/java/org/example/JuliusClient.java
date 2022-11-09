@@ -1,10 +1,13 @@
 package org.example;
 
-import java.io.*;
-import java.net.*;
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
+import java.io.IOException;
+import java.net.InetAddress;
+import java.net.Socket;
 import java.util.Scanner;
 
-public class Client
+public class JuliusClient
 {
     public static void main(String[] args) throws IOException
     {

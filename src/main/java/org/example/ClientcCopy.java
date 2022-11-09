@@ -1,10 +1,13 @@
 package org.example;
 
-import java.io.*;
-import java.net.*;
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
+import java.io.IOException;
+import java.net.InetAddress;
+import java.net.Socket;
 import java.util.Scanner;
 
-public class Client
+public class ClientcCopy
 {
     public static void main(String[] args) throws IOException
     {
@@ -24,22 +27,10 @@ public class Client
 
             // the following loop performs the exchange of
             // information between client and client handler
-
-            int callNr = 0;
-            String tosend;
             while (true)
             {
                 System.out.println(dis.readUTF());
-                switch (callNr++){
-                    case 0:
-                        tosend = "Put;bob;40";
-                        break;
-                    default:
-                        tosend = "EXIT";
-                        break;
-                }
-
-                //String tosend = scn.nextLine();
+                String tosend = scn.nextLine();
                 dos.writeUTF(tosend);
                 System.out.println("sendt: " + tosend);
 

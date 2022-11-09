@@ -4,7 +4,7 @@ import java.io.*;
 import java.net.*;
 import java.util.Scanner;
 
-public class Client
+public class DicteClient
 {
     public static void main(String[] args) throws IOException
     {
@@ -32,8 +32,15 @@ public class Client
                 System.out.println(dis.readUTF());
                 switch (callNr++){
                     case 0:
-                        tosend = "Put;bob;40";
+                        tosend = "Put;dicte;2567";
                         break;
+                    case 1:
+                        tosend = "Get;dicte";
+                        break;
+                    case 2:
+                        break;
+
+                    catosend
                     default:
                         tosend = "EXIT";
                         break;

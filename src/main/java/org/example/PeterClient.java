@@ -1,10 +1,13 @@
 package org.example;
 
-import java.io.*;
-import java.net.*;
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
+import java.io.IOException;
+import java.net.InetAddress;
+import java.net.Socket;
 import java.util.Scanner;
 
-public class Client
+public class PeterClient
 {
     public static void main(String[] args) throws IOException
     {
@@ -32,8 +35,25 @@ public class Client
                 System.out.println(dis.readUTF());
                 switch (callNr++){
                     case 0:
-                        tosend = "Put;bob;40";
+                        tosend = "Put;Peter;69";
                         break;
+                    case 1:
+                        tosend ="Put;Meatgrinder;42";
+                        break;
+                    case 2:
+                        tosend = "Put;Disconnect;10";
+                        break;
+                    case 3:
+                        tosend = "Put;Bhupjit;66";
+                        break;
+                    case 4:
+                        tosend = "Get;Peter";
+                        break;
+                    case 5:
+                        tosend = "Remove;Meatgrinder";
+                        break;
+                    case 6:
+                        tosend =
                     default:
                         tosend = "EXIT";
                         break;

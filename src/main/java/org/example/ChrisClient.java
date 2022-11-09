@@ -1,10 +1,13 @@
 package org.example;
 
-import java.io.*;
-import java.net.*;
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
+import java.io.IOException;
+import java.net.InetAddress;
+import java.net.Socket;
 import java.util.Scanner;
 
-public class Client
+public class ChrisClient
 {
     public static void main(String[] args) throws IOException
     {
@@ -34,6 +37,14 @@ public class Client
                     case 0:
                         tosend = "Put;bob;40";
                         break;
+                    case 1:
+                        tosend = "Put;Chris;20";
+                        break;
+                    case 2:
+                        tosend = "Get;Chris";
+                        break;
+                    case 3:
+                        tosend = "Remove; "
                     default:
                         tosend = "EXIT";
                         break;

@@ -19,7 +19,7 @@ public class Phonebook {
     }
 
     public String get(String k) {
-        return phoneBook.get(k) == null ? "fejl" : phoneBook.get(k);
+        return phoneBook.get(k);
     }
 
     public String remove(String k) {
