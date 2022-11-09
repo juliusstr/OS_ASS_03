@@ -44,7 +44,29 @@ public class ChrisClient
                         tosend = "Get;Chris";
                         break;
                     case 3:
-                        tosend = "Remove; "
+                        tosend = "Remove;Bob;40";
+                        break;
+                    case 4:
+                        tosend = "Put;bOb;30";
+                        break;
+                    case 5:
+                        tosend = "Put;Bob;10";
+                        break;
+                    case 6:
+                        tosend = "Get;bob";
+                        break;
+                    case 7:
+                        tosend = "Remove;bOb";
+                        break;
+                    case 8:
+                        tosend = "Put;Bob;69";
+                        break;
+                    case 9:
+                        tosend = "Put;bob;29";
+                        break;
+                    case 10:
+                        tosend = "Remove;bob;40";
+                        break;
                     default:
                         tosend = "EXIT";
                         break;

@@ -38,7 +38,7 @@ public class PeterClient
                         tosend = "Put;Peter;69";
                         break;
                     case 1:
-                        tosend ="Put;Meatgrinder;42";
+                        tosend = "Put;Meatgrinder;42";
                         break;
                     case 2:
                         tosend = "Put;Disconnect;10";
@@ -53,7 +53,26 @@ public class PeterClient
                         tosend = "Remove;Meatgrinder";
                         break;
                     case 6:
-                        tosend =
+                        tosend = "Put;Juliusminven;56";
+                        break;
+                    case 7:
+                        tosend = "Remove;Juliusminven";
+                        break;
+                    case 8:
+                        tosend = "Put;IAmGonnaCommitAFelony;12";
+                        break;
+                    case 9:
+                        tosend = "Put;IAmMisterFBI;112";
+                        break;
+                    case 10:
+                        tosend = "Get;IAmGonnaCommitAFelony";
+                        break;
+                    case 11:
+                        tosend = "Remove;IAmGonnaCommitAFelony";
+                        break;
+                    case 12:
+                        tosend = "Size";
+                        break;
                     default:
                         tosend = "EXIT";
                         break;

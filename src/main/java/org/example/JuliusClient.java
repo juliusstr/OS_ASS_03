@@ -35,7 +35,37 @@ public class JuliusClient
                 System.out.println(dis.readUTF());
                 switch (callNr++){
                     case 0:
-                        tosend = "Put;bob;40";
+                        tosend = "Put;bob;30";
+                        break;
+                    case 1:
+                        tosend = "Put;julius;403723531243";
+                        break;
+                    case 2:
+                        tosend = "Get;bob";
+                        break;
+                    case 3:
+                        tosend = "Size";
+                        break;
+                    case 4:
+                        tosend = "Remove;bob";
+                        break;
+                    case 5:
+                        tosend = "Get;bob";
+                        break;
+                    case 6:
+                        tosend = "Put;bob;50124";
+                        break;
+                    case 7:
+                        tosend = "Put;peter;50124";
+                        break;
+                    case 8:
+                        tosend = "Get;peter";
+                        break;
+                    case 9:
+                        tosend = "Remove;chris";
+                        break;
+                    case 10:
+                        tosend = "Remove;peter";
                         break;
                     default:
                         tosend = "EXIT";
