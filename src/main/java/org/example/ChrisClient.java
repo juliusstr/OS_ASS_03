@@ -38,10 +38,10 @@ public class ChrisClient
                         tosend = "Put;bob;40";
                         break;
                     case 1:
-                        tosend = "Put;Chris;20";
+                        tosend = "Put;Bob;20";
                         break;
                     case 2:
-                        tosend = "Get;Chris";
+                        tosend = "Get;bob";
                         break;
                     case 3:
                         tosend = "Remove;Bob;40";
