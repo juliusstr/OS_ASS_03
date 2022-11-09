@@ -56,7 +56,7 @@ public class ChrisClient
                         tosend = "Get;bob";
                         break;
                     case 7:
-                        tosend = "Remove;bOb";
+                        tosend = "Update";
                         break;
                     case 8:
                         tosend = "Put;Bob;69";

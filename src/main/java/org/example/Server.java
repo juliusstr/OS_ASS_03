@@ -64,6 +64,8 @@ class ClientHandler extends Thread {
     final Socket s;
 
     Semaphore semaphore;
+
+    Phonebook phonebooklive;
     Phonebook phonebook;
 
 
@@ -74,7 +76,8 @@ class ClientHandler extends Thread {
         this.dis = dis;
         this.dos = dos;
         this.semaphore = semaphore;
-        this.phonebook = phonebook;
+        this.phonebook = phonebook.clone();
+        this.phonebooklive = phonebook;
     }
 
     @Override
@@ -126,9 +129,10 @@ class ClientHandler extends Thread {
                         v = command[2];
                         System.out.println("k: " + k + "   v: " + v);
                         semaphore.acquireUninterruptibly();
-                        toreturn = phonebook.put(k,v);
+                        phonebooklive.put(k,v);
                         Thread.sleep(DELAY_MS);
                         semaphore.release();
+                        toreturn = phonebook.put(k,v);
                         if (toreturn == null)
                             toreturn = "N/A";
                         dos.writeUTF(toreturn);
@@ -137,10 +141,8 @@ class ClientHandler extends Thread {
                     case "Get" :
                         k = command[1];
                         System.out.println("k: " + k);
-                        semaphore.acquireUninterruptibly();
                         toreturn = phonebook.get(k);
                         Thread.sleep(DELAY_MS);
-                        semaphore.release();
                         if (toreturn == null)
                             toreturn = "N/A";
                         dos.writeUTF(toreturn);
@@ -150,9 +152,10 @@ class ClientHandler extends Thread {
                         k = command[1];
                         System.out.println("k: " + k);
                         semaphore.acquireUninterruptibly();
-                        toreturn = phonebook.remove(k);
+                        phonebooklive.remove(k);
                         Thread.sleep(DELAY_MS);
                         semaphore.release();
+                        toreturn = phonebook.remove(k);
                         if (toreturn == null)
                             toreturn = "N/A";
                         dos.writeUTF(toreturn);
@@ -160,11 +163,16 @@ class ClientHandler extends Thread {
 
                     case "Size" :
                         int i;
-                        semaphore.acquireUninterruptibly();
                         i = phonebook.size();
                         Thread.sleep(DELAY_MS);
-                        semaphore.release();
                         dos.writeUTF("" + i);
+                        break;
+                    case "Update" :
+                        semaphore.acquireUninterruptibly();
+                        phonebook = phonebooklive.clone();
+                        Thread.sleep(DELAY_MS);
+                        semaphore.release();
+                        dos.writeUTF("Update done!");
                         break;
                     default:
                         dos.writeUTF("Invalid input");

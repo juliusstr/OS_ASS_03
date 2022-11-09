@@ -47,7 +47,7 @@ public class JuliusClient
                         tosend = "Size";
                         break;
                     case 4:
-                        tosend = "Remove;bob";
+                        tosend = "Update";
                         break;
                     case 5:
                         tosend = "Get;bob";

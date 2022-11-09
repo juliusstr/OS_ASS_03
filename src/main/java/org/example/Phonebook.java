@@ -1,33 +1,39 @@
 package org.example;
 
-import java.util.Collection;
 import java.util.HashMap;
-import java.util.Set;
 
 public class Phonebook {
-    private HashMap<String, String> phoneBook;//key name , value phone number
+    private HashMap<String, String> phoneBookMap;//key name , value phone number
 
     /*
     inits the phonebook or clears it.
      */
     public Phonebook() {
-        phoneBook = new HashMap<String, String>();
+        phoneBookMap = new HashMap<String, String>();
     }
 
     public String put(String k, String v) {
-        return phoneBook.put(k, v);
+        return phoneBookMap.put(k, v);
     }
 
     public String get(String k) {
-        return phoneBook.get(k);
+        return phoneBookMap.get(k);
     }
 
     public String remove(String k) {
-        return phoneBook.remove(k);
+        return phoneBookMap.remove(k);
     }
 
     public int size() {
-        return phoneBook.size();
+        return phoneBookMap.size();
     }
+
+    public Phonebook clone(){
+        Phonebook phonebook = new Phonebook();
+        phonebook.phoneBookMap = (HashMap<String, String>) this.phoneBookMap.clone();
+        return phonebook;
+    }
+
+
 }
 

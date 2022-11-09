@@ -62,7 +62,7 @@ public class PeterClient
                         tosend = "Put;IAmGonnaCommitAFelony;12";
                         break;
                     case 9:
-                        tosend = "Put;IAmMisterFBI;112";
+                        tosend = "Update";
                         break;
                     case 10:
                         tosend = "Get;IAmGonnaCommitAFelony";

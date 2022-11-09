@@ -35,7 +35,7 @@ public class DicteClient
                         tosend = "Put;dicte;2567";
                         break;
                     case 1:
-                        tosend = "Get;dicte";
+                        tosend = "Update";
                         break;
                     case 2:
                         tosend = "Size";
