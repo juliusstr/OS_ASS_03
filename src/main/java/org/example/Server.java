@@ -15,7 +15,9 @@ public class Server
     {
         // server is listening on port 6666
         ServerSocket ss = new ServerSocket(6666);
+        // semaphore object created to pass around
         Semaphore semaphore = new Semaphore(1);
+        //phonebook created also to pass around
         Phonebook phonebook = new Phonebook();
 
 
@@ -23,29 +25,29 @@ public class Server
         // client request
         while (true)
         {
-            Socket s = null;
+            Socket s = null;//temp socket to pass to clientHandler thread
 
             try
             {
-                // socket object to receive incoming client requests
+                // receive incoming client requests on serversocket(ss). is bloked until connection is made
                 s = ss.accept();
 
-                System.out.println("A new client is connected : " + s);
+                System.out.println("A new client is connected : " + s);//debug/info
 
-                // obtaining input and out streams
+                // obtaining input and out streams to pass to clientHandler thread
                 DataInputStream dis = new DataInputStream(s.getInputStream());
                 DataOutputStream dos = new DataOutputStream(s.getOutputStream());
 
                 System.out.println("Assigning new thread for this client");
 
-                // create a new thread object
+                // create a new thread object and passes variabels
                 Thread t = new ClientHandler(s, dis, dos, semaphore, phonebook);
 
                 // Invoking the start() method
                 t.start();
 
             }
-            catch (Exception e){
+            catch (Exception e){//you know
                 s.close();
                 e.printStackTrace();
             }
@@ -56,9 +58,7 @@ public class Server
 // ClientHandler class
 class ClientHandler extends Thread {
 
-    static final long DELAY_MS = 2000;
-    DateFormat fordate = new SimpleDateFormat("yyyy/MM/dd");
-    DateFormat fortime = new SimpleDateFormat("hh:mm:ss");
+    static final long DELAY_MS = 2000;// deley to simulate extensive CPU usages
     final DataInputStream dis;
     final DataOutputStream dos;
     final Socket s;
@@ -76,7 +76,9 @@ class ClientHandler extends Thread {
         this.dis = dis;
         this.dos = dos;
         this.semaphore = semaphore;
+        semaphore.acquireUninterruptibly();//fix
         this.phonebook = phonebook.clone();
+        semaphore.release();//fix
         this.phonebooklive = phonebook;
     }
 
@@ -113,17 +115,6 @@ class ClientHandler extends Thread {
                 String k = "";
                 String v = "";
                 switch (command[0]) {
-
-                    case "Date" :
-                        toreturn = fordate.format(date);
-                        dos.writeUTF(toreturn);
-                        break;
-
-                    case "Time" :
-                        toreturn = fortime.format(date);
-                        dos.writeUTF(toreturn);
-                        break;
-
                     case "Put" :
                         k = command[1];
                         v = command[2];
